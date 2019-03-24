@@ -16,15 +16,17 @@ public abstract class weapon : MonoBehaviour
     protected LayerMask whatToHit;
     protected LayerMask notToHit;
     protected float timeToFire = 0f;
+    protected Vector2 aim;
+    protected Vector2 mousePosition;
 
     public void Shoot()
     {
-        Vector2 mousePosition = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        mousePosition = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
         Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y);
         Vector2 aim = firePointPosition + mousePosition;
 
         GameObject Projectile = Instantiate(bullet, firePointPosition, Quaternion.identity); //check this later for bugs
-
+        Projectile.GetComponent<Rigidbody2D>().velocity = transform.forward * bulletSpeed;//new Vector2(bulletSpeed, 0);
     }
     
     
